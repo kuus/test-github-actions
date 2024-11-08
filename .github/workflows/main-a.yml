@@ -1,0 +1,25 @@
+
+on:
+  workflow_dispatch:
+  create:
+  pull_request:
+  push:
+
+jobs:
+  build-a:
+    runs-on: ubuntu-latest
+    outputs:
+      is-changed: ${{ steps.check.outputs.changes_detected == 'true' }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: check
+        run: |
+          echo "changes_detected=$(echo 'true')" >> $GITHUB_OUTPUT
+
+  deploy:
+    needs: [build-a]
+    secrets: inherit
+    if: needs.build-a.outputs.is-changed == 'true'
+    uses: ./.github/workflows/main.yml
+    with:
+      skip_a: true
