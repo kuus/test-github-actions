@@ -1,4 +1,10 @@
 
+on:
+  workflow_dispatch:
+  create:
+  pull_request:
+  push:
+
 jobs:
   build-a:
     runs-on: ubuntu-latest
