@@ -24,7 +24,6 @@ jobs:
 
   build-staging:
     needs: [test, prebuild-a]
-    if: github.ref_name == 'staging'
     if: always() && !cancelled() && github.ref_name == 'staging' && needs.test.result == 'success' && (needs.prebuild-a.result == 'success' || needs.prebuild-a.result == 'skipped')
     uses: ./.github/workflows/build-b.yml
     secrets: inherit
