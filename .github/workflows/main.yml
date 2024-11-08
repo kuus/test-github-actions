@@ -14,7 +14,7 @@ on:
 
 jobs:
   prebuild-a:
-    if: inputs.skip_a != true
+    if: inputs.skip_a != 'true'
     uses: ./.github/workflows/build-a.yml
     secrets: inherit
 
