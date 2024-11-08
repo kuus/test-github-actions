@@ -30,6 +30,6 @@ jobs:
 
   deploy-production:
     needs: [build-production]
-    if: always() && !cancelled() && needs.build-production == 'success'
+    # if: always() && !cancelled() && needs.build-production == 'success'
     uses: ./.github/workflows/deploy.yml
     secrets: inherit
