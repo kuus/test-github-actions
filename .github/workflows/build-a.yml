@@ -9,3 +9,5 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - run: echo 'build-a'
+    - name: simulate failure
+      run: exit 1
