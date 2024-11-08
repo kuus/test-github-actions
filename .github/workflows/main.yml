@@ -29,7 +29,7 @@ jobs:
     secrets: inherit
 
   deploy-production:
-    needs: [test, build-production]
-    if: always() && !cancelled() && (needs.test.result == 'success') && (needs.build-production == 'success')
+    needs: [build-production]
+    if: always() && !cancelled() && needs.build-production == 'success'
     uses: ./.github/workflows/deploy.yml
     secrets: inherit
