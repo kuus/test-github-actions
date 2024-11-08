@@ -36,12 +36,12 @@ jobs:
 
   deploy-staging:
     needs: [build-staging]
-    if: always() && !cancelled() && github.ref_name == 'staging' && needs.build-staging != 'failure' && needs.build-staging != 'cancelled'
+    if: always() && !cancelled() && github.ref_name == 'staging' && needs.build-staging.result != 'failure' && needs.build-staging.result != 'cancelled'
     uses: ./.github/workflows/deploy.yml
     secrets: inherit
 
   deploy-production:
     needs: [build-production]
-    if: always() && !cancelled() && github.ref_name == 'main' && needs.build-production != 'failure' && needs.build-production != 'cancelled'
+    if: always() && !cancelled() && github.ref_name == 'main' && needs.build-production.result != 'failure' && needs.build-production.result != 'cancelled'
     uses: ./.github/workflows/deploy.yml
     secrets: inherit
