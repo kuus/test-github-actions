@@ -1,0 +1,35 @@
+
+on:
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      skip_a:
+        default: false
+        description: Whether to skip job a
+        required: false
+        type: boolean
+  create:
+  pull_request:
+  push:
+
+jobs:
+  prebuild-a:
+    if: inputs.skip_a != true
+    uses: ./.github/workflows/build-a.yml
+    secrets: inherit
+
+  test:
+    uses: ./.github/workflows/test.yml
+    secrets: inherit
+
+  build-production:
+    needs: [test, prebuild-a]
+    if: always() && !cancelled() && (needs.test.result == 'success') && (needs.prebuild-a.result == 'success' || needs.prebuild-a.result == 'skipped')
+    uses: ./.github/workflows/build-b.yml
+    secrets: inherit
+
+  deploy-production:
+    needs: [test, build-production]
+    if: always() && !cancelled() && (needs.test.result == 'success') && (needs.prebuild-production == 'success')
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit

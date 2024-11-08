@@ -1,0 +1,10 @@
+name: deploy
+
+on:
+  workflow_call:
+
+jobs:
+  deploy:
+    steps:
+    - uses: actions/checkout@v3
+    - run: echo 'deploy'

@@ -1,0 +1,10 @@
+name: build-a
+
+on:
+  workflow_call:
+
+jobs:
+  build-a:
+    steps:
+    - uses: actions/checkout@v3
+    - run: echo 'build-a'
