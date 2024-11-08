@@ -38,13 +38,11 @@ jobs:
   deploy-staging:
     needs: [build-staging]
     if: github.ref_name == 'staging'
-    # if: always() && !cancelled() && needs.build-production == 'success'
     uses: ./.github/workflows/deploy.yml
     secrets: inherit
 
   deploy-production:
     needs: [build-production]
-    if: github.ref_name == 'production'
-    # if: always() && !cancelled() && needs.build-production == 'success'
+    if: github.ref_name == 'main'
     uses: ./.github/workflows/deploy.yml
     secrets: inherit
