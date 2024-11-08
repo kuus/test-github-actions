@@ -39,6 +39,8 @@ jobs:
     if: always() && !cancelled() && github.ref_name == 'staging' && needs.build-staging.result != 'failure' && needs.build-staging.result != 'cancelled'
     uses: ./.github/workflows/deploy.yml
     secrets: inherit
+    with:
+      log: ${{ needs.build-staging.result }}
 
   deploy-production:
     needs: [build-production]

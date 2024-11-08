@@ -2,10 +2,15 @@ name: deploy
 
 on:
   workflow_call:
+    inputs:
+      log:
+        default: ''
+        required: false
+        type: string
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - run: echo 'deploy'
+    - run: echo 'deploy: ${{ inputs.log }}'
